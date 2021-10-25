@@ -33,38 +33,38 @@ module.exports = {
 
   },
 
-  // async githubAuth(parent, { code }, { db }) {
+  async githubAuth(parent, { code }, { db }) {
 
-  //   let {
-  //     message,
-  //     access_token,
-  //     avatar_url,
-  //     login,
-  //     name
-  //   } = await authorizeWithGithub({
-  //     client_id: process.env.CLIENT_ID,
-  //     client_secret: process.env.CLIENT_SECRET,
-  //     code
-  //   })
+    let {
+      message,
+      access_token,
+      avatar_url,
+      login,
+      name
+    } = await authorizeWithGithub({
+      client_id: process.env.CLIENT_ID,
+      client_secret: process.env.CLIENT_SECRET,
+      code
+    })
 
-  //   if (message) {
-  //     throw new Error(message)
-  //   }
+    if (message) {
+      throw new Error(message)
+    }
 
-  //   let latestUserInfo = {
-  //     name,
-  //     githubLogin: login,
-  //     githubToken: access_token,
-  //     avatar: avatar_url
-  //   }
+    let latestUserInfo = {
+      name,
+      githubLogin: login,
+      githubToken: access_token,
+      avatar: avatar_url
+    }
 
-  //   const { ops:[user] } = await db
-  //     .collection('users')
-  //     .replaceOne({ githubLogin: login }, latestUserInfo, { upsert: true })
+    const { ops:[user] } = await db
+      .collection('users')
+      .replaceOne({ githubLogin: login }, latestUserInfo, { upsert: true })
 
-  //   return { user, token: access_token }
+    return { user, token: access_token }
   
-  // },
+  },
 
   addFakeUsers: async (parent, { count }, { db }) => {
     var randomUserApi = `https://randomuser.me/api/?results=${count}`
