@@ -14,6 +14,11 @@ persistCache({
     storage: localStorage
 })
 
+if (localStorage['apollo-cache-persist']) {
+  let cacheData = JSON.parse(localStorage['apollo-cache-persist'])
+  cache.restore(cacheData)
+}
+
 const client = new ApolloClient({ 
   uri: 'http://localhost:4000/graphql'
   // cache,
